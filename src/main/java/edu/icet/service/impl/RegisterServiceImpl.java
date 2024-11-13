@@ -1,7 +1,6 @@
 package edu.icet.service.impl;
 
 import edu.icet.dto.Register;
-import edu.icet.entity.FacultyEntity;
 import edu.icet.entity.RegisterEntity;
 import edu.icet.repository.RegisterRepository;
 import edu.icet.service.RegisterService;
@@ -58,13 +57,16 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
+    public RegisterEntity findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+    @Override
     public void updateUserById(Register user, MultipartFile imageFile) throws IOException {
         Optional<RegisterEntity> existingEntityOpt = repository.findById(user.getReg_id());
 
         if (existingEntityOpt.isPresent()) {
             RegisterEntity existingEntity = existingEntityOpt.get();
 
-            // Update user details
             existingEntity.setProgram(user.getProgram());
             existingEntity.setTitle(user.getTitle());
             existingEntity.setReferral(user.getReferral());
@@ -86,14 +88,12 @@ public class RegisterServiceImpl implements RegisterService {
             existingEntity.setUsername(user.getUsername());
             existingEntity.setPassword(user.getPassword());
 
-            // Update image data if a new image file is provided
             if (imageFile != null && !imageFile.isEmpty()) {
                 existingEntity.setImageName(imageFile.getOriginalFilename());
                 existingEntity.setImageType(imageFile.getContentType());
                 existingEntity.setImageData(imageFile.getBytes());
             }
 
-            // Save updated entity
             repository.save(existingEntity);
         } else {
             throw new EntityNotFoundException("User with ID " + user.getReg_id() + " not found");

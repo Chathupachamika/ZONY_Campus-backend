@@ -71,7 +71,7 @@ public class ProgramController {
     @PutMapping("/update-Program")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Map<String, String>> updateProgram(
-            @RequestPart("Program") Program program, // Corrected to Program type
+            @RequestPart("Program") Program program,
             @RequestPart(value = "imageFile", required = false) MultipartFile imageFile) {
 
         Map<String, String> response = new HashMap<>();
