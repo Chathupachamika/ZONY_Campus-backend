@@ -7,6 +7,7 @@ import edu.icet.service.FacultyService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FacultyServiceImpl implements FacultyService {
+    @Autowired
     private final FacultyRepository repository;
     private final ModelMapper mapper;
 
